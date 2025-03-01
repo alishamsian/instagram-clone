@@ -4,6 +4,7 @@ import { client } from "../../lib/axios";
 import{yupResolver} from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
+import { Link } from "react-router";
 
 export default function Signup() {
   const schema=yup.object({
@@ -71,7 +72,8 @@ export default function Signup() {
         </form>
         <div className=" text-black text-center w-80 py-4">
           <span className="text-sm">Already have an account? </span>
-          <a className="text-blue-500 text-sm font-semibold">Login</a>
+          <Link  to="/login" className="text-blue-500 text-sm font-semibold">Login</Link>
+        
         </div>
       </div>
     </div>

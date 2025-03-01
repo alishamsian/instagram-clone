@@ -66,6 +66,7 @@ async function submitForm(user){//خروجیش object
                 </form>
                 <div className=" text-black text-center w-80 pt-10">
                   <span className="text-sm">Don’t have an account? </span>
+
                   <Link to="/signup" className="text-blue-500 text-sm font-semibold" >signup</Link>
                 </div>
             </div>
