@@ -5,6 +5,8 @@ import Layout from "./layout/Layout";
 import Search from "./components/search";
 import Create from "./components/create";
 import Profile from "./components/profile";
+import Login from "./components/Login/Login";
+import Signup from "./components/SignUp/Signup";
 
 
 
@@ -16,6 +18,8 @@ function App() {
       <Route path="search" element={<Search/>}/>
       <Route path="create" element={<Create/>}/>
       <Route path="profile" element={<Profile/>}/>
+      <Route path="signup" element={<Signup/>}/>
+      <Route path="login" element={<Login/>}/>
       </Route>
     </Routes>
 
