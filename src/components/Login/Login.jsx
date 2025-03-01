@@ -24,7 +24,7 @@ async function submitForm(user){//خروجیش object
      const response=await client.post("/user/login", user)
      localStorage.setItem('token',response.data.jwt)
 
-     toast.success("user added successfull",{
+     toast.success("login successfull",{
       type:"success",
      })
   } catch (error) {

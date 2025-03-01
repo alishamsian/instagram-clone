@@ -1,15 +1,27 @@
-import Login from "./components/Login/Login";
-import PostItem from "./components/PostItem/PostItem";
-import PostItems from "./components/PostItems/PostItems";
-import Signup from "./components/SignUp/Signup";
+import { Route, Routes } from "react-router";
+import Home from "./components/Home";
+
 import Layout from "./layout/Layout";
+import Search from "./components/search";
+import Create from "./components/create";
+import Profile from "./components/profile";
+
+
 
 function App() {
   return (
-    // <Login />
-    <Layout>
-      <PostItems />
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Layout/>}>
+      <Route index element={<Home/>}/>
+      <Route path="search" element={<Search/>}/>
+      <Route path="create" element={<Create/>}/>
+      <Route path="profile" element={<Profile/>}/>
+      </Route>
+    </Routes>
+
+
+
+
   );
 }
 
