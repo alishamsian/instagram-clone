@@ -1,7 +1,10 @@
-import { ToastContainer } from "react-toastify";
+import Sidebar from "../components/SideBar/SideBar";
 
-export default function Layout() {
+export default function Layout({ children }) {
   return (
-    <ToastContainer />
-  )
+    <div className="flex">
+      <Sidebar />
+      <main className="ml-60 w-full p-5">{children}</main>
+    </div>
+  );
 }
