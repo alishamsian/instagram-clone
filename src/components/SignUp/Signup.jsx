@@ -22,7 +22,7 @@ export default function Signup() {
   async function submitForm(user){
     try {
       console.log(user);
-      const response=await client.post(/user/signup)
+      const response=await client.post("/user/signup", user)
       localStorage.setItem('token',response.data.jwt)
        
       toast.success("user added successfull",{
@@ -40,7 +40,7 @@ export default function Signup() {
         <img className="w-[150px] h-[50px]" src={Logo} alt="" />
         <form  onSubmit={handleSubmit(submitForm)} className="mt-8 w-64 flex flex-col">
           <input {...register("email")}
-            autofocus
+            
             className="text-xs w-full mb-2 rounded border text-black bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
             id="email"
             placeholder="email"
@@ -48,26 +48,26 @@ export default function Signup() {
           />
           {errors?.email?<span className="text-error"> {errors.email.message}</span>:null}
           <input  {...register("username")}
-            autofocus
+           
             className="text-xs w-full mb-2 rounded border text-black bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
-            id="usesrname"
-            placeholder="usesrname"
-            type="usesrname"
+            id="username"
+            placeholder="username"
+            type="text"
           />
         {errors?.username?<span className="text-error"> {errors.username.message}</span>:null}
 
           <input  {...register("password")}
-            autofocus
+            
             className="text-xs w-full mb-4 rounded border text-black bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
             id="password"
             placeholder="Password"
             type="password"
           />
             {errors?.password?<span className="text-error"> {errors.password.message}</span>:null}
+            <button type="submit" className="text-sm text-center bg-blue-500 hover:bg-blue-600 text-white py-2 rounded font-medium">
+             Sign up
+            </button>
 
-          <a className=" text-sm text-center bg-blue-300 text-white py-1 rounded font-medium">
-            Sign up
-          </a>
         </form>
         <div className=" text-black text-center w-80 py-4">
           <span className="text-sm">Already have an account? </span>
