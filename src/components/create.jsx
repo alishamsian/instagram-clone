@@ -1,5 +1,6 @@
-export default function Create(){
-    return(
-        <div></div>
-    )
+
+export default function Create() {
+  return (
+    <div>create</div>
+  )
 }

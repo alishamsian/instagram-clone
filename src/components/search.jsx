@@ -1,64 +1,75 @@
-import { useEffect, useState } from "react";
-import { client } from "../lib/axios";
 
+import { useState } from "react";
+import { Search as SearchIcon, X } from "lucide-react";
+import LoginImg from "../assets/login-img.png";
+
+
+const recentSearches = [
+  { id: 1, name: "ted", desc: "TED Talks" },
+  { id: 2, name: "voxdotcom", desc: "Vox" },
+  { id: 3, name: "mkbhd", desc: "Marques Brownlee • Following" },
+  { id: 4, name: "veritasium", desc: "Veritasium • Following" },
+  { id: 5, name: "lewishamilton", desc: "Lewis Hamilton • Following" },
+  { id: 6, name: "openaidalle", desc: "DALL-E by OpenAI • Following" }
+];
 
 export default function Search() {
-  const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState(recentSearches);
 
-  async function getData(query = "") {
-    setLoading(true);
-    try {
-      const response = await client.get(`/api/user/searchUser?search=${query}`);
-      const { data } = response.data;
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const handleDelete = (id) => {
+    setSearchResults(searchResults.filter(item => item.id !== id));
+  };
 
-  useEffect(() => {
-    getData(); // دریافت کاربران اولیه بدون فیلتر
-  }, []);
-
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    setSearchTerm(query);
-    getData(query);
+  const clearAll = () => {
+    setSearchResults([]);
   };
 
   return (
-    <div className="container mt-30 px-4">
-      {/* فیلد جستجو */}
-      <input
-        type="text"
-        placeholder="جستجوی کاربر..."
-        value={searchTerm}
-        onChange={handleSearch}
-        className="w-full p-2 border rounded-md mb-4"
-      />
-
-      {/* نمایش وضعیت بارگذاری */}
-      {loading ? <h1>در حال دریافت اطلاعات...</h1> : null}
-
-      {/* نمایش کاربران */}
-      {users.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-          {users.map((user) => (
-            <div
-              key={user.id}
-              className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center hover:shadow-xl transition-all"
-            >
-              <p>{user.name}</p>
-            </div>
-          ))}
+    <div className="flex justify-center items-center h-screen bg-gray-50">
+      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
+        <div className="flex items-center border border-gray-300 rounded-lg px-4 py-2">
+          <SearchIcon className="w-5 h-5 text-gray-500" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="flex-1 ml-3 outline-none text-gray-700"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-      ) : (
-        !loading && <h1>نتیجه‌ای یافت نشد...</h1>
-      )}
+
+        {/* Recent Searches */}
+        <div className="mt-6">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">Recent</h3>
+            <button className="text-blue-500 text-sm" onClick={clearAll}>
+              Clear all
+            </button>
+          </div>
+
+          {searchResults.length === 0 ? (
+            <p className="text-gray-400 text-sm mt-4">No recent searches</p>
+          ) : (
+            <ul className="mt-4 space-y-4">
+              {searchResults.map((item) => (
+                <li key={item.id} className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img src={item.img} alt={item.name} className="w-10 h-10 rounded-full" />
+                    <div>
+                      <p className="font-medium text-black">{item.name} <span className="text-blue-500">✔</span></p>
+                      <p className="text-gray-500 text-sm">{item.desc}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => handleDelete(item.id)}>
+                    <X className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
