@@ -11,8 +11,9 @@ import PublicLayout from "./layout/PublicLayout";
 
 
 function ProtectedRoute({ children }) {
-  const isAuthenticated = !!localStorage.getItem("token");
-  return isAuthenticated ? children : <Navigate to="/signup" />;
+  const isAuthenticated = localStorage.getItem("token") !== null;
+
+  return isAuthenticated ? children : <Navigate to="/signup" replace />;
 }
 
 export default function App() {
@@ -26,7 +27,7 @@ export default function App() {
 
       
         <Route  element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="create" element={<Create />} />
           <Route path="profile" element={<Profile />} />
