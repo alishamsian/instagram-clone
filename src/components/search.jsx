@@ -1,33 +1,55 @@
+<<<<<<< HEAD
 
 import { useState } from "react";
+=======
+import { useState, useEffect } from "react";
+import axios from "axios";
+>>>>>>> 02c751129b255f848b56f2d6f7a7938f97a36e07
 import { Search as SearchIcon, X } from "lucide-react";
 import LoginImg from "../assets/login-img.png";
 
 
-const recentSearches = [
-  { id: 1, name: "ted", desc: "TED Talks" },
-  { id: 2, name: "voxdotcom", desc: "Vox" },
-  { id: 3, name: "mkbhd", desc: "Marques Brownlee • Following" },
-  { id: 4, name: "veritasium", desc: "Veritasium • Following" },
-  { id: 5, name: "lewishamilton", desc: "Lewis Hamilton • Following" },
-  { id: 6, name: "openaidalle", desc: "DALL-E by OpenAI • Following" }
-];
-
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState(recentSearches);
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleDelete = (id) => {
-    setSearchResults(searchResults.filter(item => item.id !== id));
-  };
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
 
-  const clearAll = () => {
-    setSearchResults([]);
-  };
+    const fetchUsers = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(
+            `https://instagram-backend-ugd3.onrender.com/api/user/searchUser?search=${searchTerm}&limit=5`
+          );
+          // دسترسی به آرایه users از داده‌های دریافتی
+          if (Array.isArray(response.data.users)) {
+            setSearchResults(response.data.users);  // فقط آرایه users را ذخیره می‌کنیم
+          } else {
+            console.error("The 'users' field is not an array");
+            setSearchResults([]);  // در صورت عدم وجود آرایه، یک آرایه خالی تنظیم می‌کنیم
+          }
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          setSearchResults([]);  // در صورت خطا، یک آرایه خالی تنظیم می‌کنیم
+        } finally {
+          setLoading(false);
+        }
+      };
+
+    const delayDebounce = setTimeout(fetchUsers, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
       <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
+        {/* Search Bar */}
         <div className="flex items-center border border-gray-300 rounded-lg px-4 py-2">
           <SearchIcon className="w-5 h-5 text-gray-500" />
           <input
@@ -39,29 +61,30 @@ export default function Search() {
           />
         </div>
 
-        {/* Recent Searches */}
+        {/* Results */}
         <div className="mt-6">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Recent</h3>
-            <button className="text-blue-500 text-sm" onClick={clearAll}>
-              Clear all
-            </button>
-          </div>
-
-          {searchResults.length === 0 ? (
-            <p className="text-gray-400 text-sm mt-4">No recent searches</p>
+          <h3 className="text-lg font-semibold text-black">Search Results</h3>
+          {loading ? (
+            <p className="text-gray-400 text-sm mt-4">Loading...</p>
+          ) : searchResults.length === 0 ? (
+            <p className="text-gray-400 text-sm mt-4">No results found</p>
           ) : (
             <ul className="mt-4 space-y-4">
-              {searchResults.map((item) => (
-                <li key={item.id} className="flex items-center justify-between">
+              {searchResults?.map((user) => (
+                <li key={user.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <img src={item.img} alt={item.name} className="w-10 h-10 rounded-full" />
+                    <img
+                      src={user.profilePicture ??
+                         {LoginImg}}
+                      alt={user.username}
+                      className="w-10 h-10 rounded-full"
+                    />
                     <div>
-                      <p className="font-medium text-black">{item.name} <span className="text-blue-500">✔</span></p>
-                      <p className="text-gray-500 text-sm">{item.desc}</p>
+                      <p className="font-medium text-black">{user.username} <span className="text-blue-500">✔</span></p>
+                      <p className="text-gray-500 text-sm">{user.username}</p>
                     </div>
                   </div>
-                  <button onClick={() => handleDelete(item.id)}>
+                  <button>
                     <X className="w-5 h-5 text-gray-400 hover:text-gray-600" />
                   </button>
                 </li>
