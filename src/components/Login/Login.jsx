@@ -23,7 +23,7 @@ async function submitForm(user){//خروجیش object
       
       console.log(user);
      const response=await client.post("/user/login", user)
-     localStorage.setItem('token',response.data.accessToke)
+     localStorage.setItem('token',response.data.accessToken)
 
 
      console.log(response)
