@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfilePosts from "./ProfilePosts/ProfilePosts";
 
+import profileImg from "../assets/profile.png"
+
 export default function Profile() {
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [user, setUser] = useState(null);
@@ -35,7 +37,7 @@ export default function Profile() {
     <div className=" flex flex-col">
     <div className="flex items-center gap-6 p-6 text-black rounded-lg max-w-2xl mx-auto">
       <div className="relative">
-        <img src={user.user.profilePic} alt={user.user.username} className="w-24 h-24 rounded-full border-4 border-pink-500" />
+        <img src={user.user.profilePic || profileImg } alt={user.user.username} className="w-24 h-24 rounded-full border-4 border-pink-500" />
       </div>
 
       <div>
