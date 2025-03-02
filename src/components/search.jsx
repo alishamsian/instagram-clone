@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-
-import { useState } from "react";
-=======
 import { useState, useEffect } from "react";
 import axios from "axios";
->>>>>>> 02c751129b255f848b56f2d6f7a7938f97a36e07
 import { Search as SearchIcon, X } from "lucide-react";
 import LoginImg from "../assets/login-img.png";
 
@@ -28,14 +23,14 @@ export default function Search() {
           );
           // دسترسی به آرایه users از داده‌های دریافتی
           if (Array.isArray(response.data.users)) {
-            setSearchResults(response.data.users);  // فقط آرایه users را ذخیره می‌کنیم
+            setSearchResults(response.data.users); 
           } else {
             console.error("The 'users' field is not an array");
-            setSearchResults([]);  // در صورت عدم وجود آرایه، یک آرایه خالی تنظیم می‌کنیم
+            setSearchResults([]);
           }
         } catch (error) {
           console.error("Error fetching users:", error);
-          setSearchResults([]);  // در صورت خطا، یک آرایه خالی تنظیم می‌کنیم
+          setSearchResults([]); 
         } finally {
           setLoading(false);
         }
