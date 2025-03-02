@@ -21,16 +21,15 @@ export default function Search() {
           const response = await axios.get(
             `https://instagram-backend-ugd3.onrender.com/api/user/searchUser?search=${searchTerm}&limit=5`
           );
-          // دسترسی به آرایه users از داده‌های دریافتی
           if (Array.isArray(response.data.users)) {
-            setSearchResults(response.data.users);  // فقط آرایه users را ذخیره می‌کنیم
+            setSearchResults(response.data.users);  
           } else {
             console.error("The 'users' field is not an array");
-            setSearchResults([]);  // در صورت عدم وجود آرایه، یک آرایه خالی تنظیم می‌کنیم
+            setSearchResults([]); 
           }
         } catch (error) {
           console.error("Error fetching users:", error);
-          setSearchResults([]);  // در صورت خطا، یک آرایه خالی تنظیم می‌کنیم
+          setSearchResults([]); 
         } finally {
           setLoading(false);
         }

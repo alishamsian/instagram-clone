@@ -24,9 +24,10 @@ async function submitForm(user){//خروجیش object
       console.log(user);
      const response=await client.post("/user/login", user)
      localStorage.setItem('token',response.data.accessToken)
+     localStorage.setItem('username',response.data.data.username)
 
 
-     console.log(response)
+     console.log(response.data.data.username)
 
      toast.success("login successfull",{
       type:"success",
