@@ -37,33 +37,3 @@ export default function PostItems() {
   );
 }
 
-// import { useEffect, useState } from "react"
-// import { client } from "../../lib/axios";
-
-// export default function Postitems(){
-//     const[posts, setPosts]=useState([])
-
-//         async function Getdata(){
-//             const response =await client.get("/article/timeline?page");
-//             const{data}=response.data
-//             setPosts(data)
-//             // console.log(data)
-//         }
-//         useEffect(()=>{
-//             Getdata()
-//         },[])
-//         console.log(posts)
-//         return posts ? <div className="container mt-30 px-4" >
-
-//          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-//             {
-//                 posts?.map((post) => {
-                    
-//                     return (   <div  className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center hover:shadow-xl transition-all" key={id}>
-                           
-//                         </div>)
-//                 })
-//             }
-//         </div> 
-//         </div>: <h1> Loading...</h1>
-// }

@@ -1,10 +1,13 @@
+import { Outlet } from "react-router";
 import Sidebar from "../components/SideBar/SideBar";
 
 export default function Layout() {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="ml-60 w-full p-5"></main>
+      <div className="flex-1 p-4 ml-60">
+      <Outlet/>
+      </div>
     </div>
   );
 }

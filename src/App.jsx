@@ -2,12 +2,13 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Layout from "./layout/Layout";
 import Search from "./components/Search";
-import Create from "./components/Create";
+
 import Profile from "./components/Profile";
 import Login from "./components/Login/Login";
 import Signup from "./components/SignUp/Signup";
 import { ToastContainer } from "react-toastify";
 import PublicLayout from "./layout/PublicLayout";
+import Create from "./components/create";
 
 
 function ProtectedRoute({ children }) {
@@ -26,13 +27,13 @@ export default function App() {
 
       
         <Route  element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="search" element={<Search />} />
-          <Route path="create" element={<Create />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="create" element={<Create/>} />  
+           <Route path="profile" element={<Profile />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/signup" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
 
       <ToastContainer />
