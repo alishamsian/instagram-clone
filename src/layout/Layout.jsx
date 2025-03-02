@@ -1,4 +1,3 @@
-import { Outlet } from "react-router";
 import Sidebar from "../components/SideBar/SideBar";
 
 export default function Layout() {
