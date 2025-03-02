@@ -2,13 +2,14 @@ import Logo from "../../assets/logo.png";
 import LoginImg from "../../assets/login-img.png";
 import { toast } from "react-toastify";
 import { client } from "../../lib/axios";
-import * as yup from "yup"
+import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function Login() {
+  const navigate=useNavigate()
   const schema=yup.object({
     username:yup.string().required(),
     password:yup.string().required().min(8).max(16)
@@ -27,6 +28,7 @@ async function submitForm(user){//خروجیش object
      toast.success("login successfull",{
       type:"success",
      })
+     navigate("/")
   } catch (error) {
       toast.error("error",{
           type:"error"
@@ -66,8 +68,7 @@ async function submitForm(user){//خروجیش object
                 </form>
                 <div className=" text-black text-center w-80 pt-10">
                   <span className="text-sm">Don’t have an account? </span>
-
-                  <Link to="/signup" className="text-blue-500 text-sm font-semibold" >signup</Link>
+                  <Link to="signup" className="text-blue-500 text-sm font-semibold" >signup</Link>
                 </div>
             </div>
       </div>

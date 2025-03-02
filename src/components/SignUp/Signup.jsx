@@ -4,9 +4,10 @@ import { client } from "../../lib/axios";
 import{yupResolver} from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Signup() {
+  const navigate=useNavigate()
   const schema=yup.object({
     username:yup.string().required(),
     email:yup.string().email().required(),
@@ -29,6 +30,7 @@ export default function Signup() {
       toast.success("user added successfull",{
         type:"success",
        })
+       navigate("/Login")
     } catch (error) {
       toast.error("error",{
         type:"error"

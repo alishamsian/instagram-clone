@@ -20,8 +20,8 @@ export default function Sidebar() {
         <NavItem icon={Search} label="Search" to={"/Search"} />
         <NavItem icon={PlusSquare} label="Create" to={"/Create"} />
         <NavItem icon={User} label="Profile" avatar={LoginImg} to={"/Profile"} />
-        <NavItem icon={Login} label="Login" avatar={LoginImg} to={"/Login"} />
-        <NavItem icon={Signup} label="Signup" avatar={LoginImg} to={"/Signup"} />
+        {/* <NavItem icon={Login} label="Login" avatar={LoginImg} to={"/Login"} />
+        <NavItem icon={Signup} label="Signup" avatar={LoginImg} to={"/Signup"} /> */}
       </nav>
     </div>
   );
