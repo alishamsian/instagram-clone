@@ -25,8 +25,6 @@ export default function Signup() {
     try {
       console.log(user);
       const response=await client.post("/user/signup", user)
-      localStorage.setItem('token',response.data.jwt)
-       
       toast.success("user added successfull",{
         type:"success",
        })

@@ -1,5 +1,5 @@
 export default function Profile(){
     return(
-        fghfg
+        <div>Profile</div>
     )
 }

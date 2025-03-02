@@ -1,5 +1,5 @@
 export default function Create(){
     return(
-        <div></div>
+        <div>Create</div>
     )
 }
