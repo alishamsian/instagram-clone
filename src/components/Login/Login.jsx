@@ -26,7 +26,7 @@ async function submitForm(user){//خروجیش object
      
      localStorage.setItem('token',response.data.accessToken)
      console.log(response);
-     localStorage.setItem("username", response.data.user.username)
+    //  localStorage.setItem("username", response.data.user.username)
      toast.success("login successfull",{
       type:"success",
      })
